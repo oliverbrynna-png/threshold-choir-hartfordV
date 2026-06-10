@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Greater Hartford Threshold Choir</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  .top-stripe{position:fixed;top:0;left:0;right:0;height:6px;background:var(--purple);z-index:100}
+  :root{--bg:#FAFAF8;--bg-deep:#F0EEE8;--bg-card:#FFFFFF;--paper:#FFFFFF;--ink:#1F1A24;--ink-soft:#3D3744;--ink-muted:#7A7382;--purple:#6C3FA0;--purple-deep:#4E2880;--purple-light:#9573C2;--purple-mist:#E5DAF0;--green:#9EA374;--green-deep:#6E7350;--green-mist:#DDDFC8;--gold:#B59148;--rule:#E4DFEC;--rule-soft:#EFEBF4;--shadow:0 1px 2px rgba(31,26,36,.04),0 12px 32px rgba(108,63,160,.08)}
+  *,*::before,*::after{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{font-family:'EB Garamond',Garamond,'Adobe Garamond Pro',Georgia,serif;background:var(--bg);color:var(--ink);font-size:18px;line-height:1.6;-webkit-font-smoothing:antialiased}
+  h1,h2,h3,h4,h5,.display{font-family:'EB Garamond',Garamond,'Adobe Garamond Pro',Georgia,serif;font-weight:500;line-height:1.08;letter-spacing:-0.005em;color:var(--purple);margin:0}
+  h1{font-size:clamp(44px,7vw,82px);font-weight:500;letter-spacing:-0.012em;line-height:1.04}
+  h2{font-size:clamp(32px,4.6vw,52px);font-weight:500;letter-spacing:-0.008em}
+  h3{font-size:clamp(22px,2.4vw,30px);font-weight:500;color:var(--ink)}
+  p{margin:0 0 1em}
+  a{color:var(--purple);text-decoration:none;border-bottom:1px solid rgba(126,12,110,.3);transition:border-color .2s,color .2s}
+  a:hover{color:var(--purple-deep);border-color:var(--purple-deep)}
+  button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
+  .mono{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:11px;letter-spacing:0.06em;text-transform:uppercase}
+  .eyebrow{font-family:'Verdana','Geneva',sans-serif;font-size:11px;font-weight:700;letter-spacing:0.26em;text-transform:uppercase;color:var(--purple);display:inline-flex;align-items:center;gap:12px}
+  .eyebrow::before{content:"";width:28px;height:1px;background:var(--purple)}
+  .container{max-width:1240px;margin:0 auto;padding:0 32px}
+  .container-narrow{max-width:880px;margin:0 auto;padding:0 32px}
+  @media(max-width:640px){.container,.container-narrow{padding:0 22px}}
+  .nav{position:sticky;top:6px;z-index:50;margin-top:6px;background:#FFFFFC;backdrop-filter:blur(14px) saturate(140%);-webkit-backdrop-filter:blur(14px) saturate(140%);border-bottom:1px solid #E8E2EE}
+  .nav-inner{display:grid;grid-template-columns:auto 1fr;align-items:center;height:88px;gap:24px}
+  .nav .brand{justify-self:start}
+  .nav .nav-links{justify-self:end;display:flex;gap:8px;align-items:center}
+  @media(max-width:600px){.nav-inner{grid-template-columns:auto 1fr auto;height:64px;padding:0;gap:0;align-items:center}.menu-btn{display:flex !important;align-items:center;justify-content:center;width:44px;height:44px;color:var(--ink);justify-self:end;flex-shrink:0;margin-right:32px}.nav .nav-links{display:none;position:absolute;top:100%;left:0;right:0;z-index:200;background:#FFFFFC;border-bottom:1px solid #E8E2EE;flex-direction:column;gap:0;padding:8px 0;box-shadow:0 4px 16px rgba(0,0,0,.07)}.nav .nav-links.open{display:flex}.nav-link{padding:16px 22px;font-size:13px;letter-spacing:0.1em;width:100%;text-align:left;border-radius:0}}
+  .brand{display:flex;align-items:center;gap:14px;border:none}
+  .brand:hover{border:none}
+  .brand img{display:block}
+  .brand-name{font-family:'EB Garamond',Garamond,serif;font-style:italic;font-size:24px;font-weight:500;color:var(--purple);letter-spacing:0.005em;line-height:1}
+  .nav-links{display:flex;gap:4px;align-items:center}
+  .nav-link{padding:10px 22px;font-size:12px;font-weight:700;white-space:nowrap;font-family:'Verdana','Geneva',sans-serif;text-transform:uppercase;color:var(--ink-soft);border:none;border-radius:0;letter-spacing:0.14em;position:relative;transition:color .2s}
+  .nav-link:hover{color:var(--ink);border:none;background:transparent}
+  .nav-link.active{color:var(--ink)}
+  .nav-link.active::after{content:"";position:absolute;left:22px;right:22px;bottom:8px;height:1px;background:var(--ink)}
+  .menu-btn{display:none}
+  .btn{display:inline-flex;align-items:center;gap:10px;padding:14px 24px;font-size:14px;font-weight:600;letter-spacing:0.04em;border-radius:999px;border:1px solid transparent;cursor:pointer;transition:all .2s;text-transform:uppercase;line-height:1}
+  .btn-primary{background:var(--purple);color:var(--paper)}
+  .btn-primary:hover{background:var(--purple-deep);transform:translateY(-1px)}
+  a.btn{border-bottom:none}
+  .btn-outline{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:13px 30px;font-family:'Verdana',sans-serif;font-size:13px;font-weight:700;letter-spacing:0.08em;border:1.5px solid var(--purple);color:var(--purple);background:transparent;border-radius:3px;transition:all .2s;cursor:pointer;text-decoration:none}
+  .btn-outline:hover{background:var(--purple);color:#fff;border-color:var(--purple)}
+  a.btn-outline{border-bottom:1.5px solid var(--purple)}
+  a.btn-outline:hover{border-color:var(--purple)}
+  section{padding:96px 0}
+  @media(max-width:640px){section{padding:64px 0}}
+  .purple-band{background:var(--purple);color:#fff;padding:38px 0 44px;text-align:center}
+  .purple-band .band-title{font-family:'EB Garamond',Garamond,serif;font-size:clamp(28px,3.6vw,40px);font-weight:500;color:#fff;letter-spacing:0;margin:0 0 10px}
+  .purple-band .band-sub{font-family:'EB Garamond',Garamond,serif;font-style:italic;font-size:clamp(16px,1.6vw,19px);color:#E5DAF0;max-width:700px;margin:0 auto;line-height:1.5}
+  .home-main-inner{display:grid;grid-template-columns:1.05fr 1fr;gap:48px;align-items:start;padding-top:48px;padding-bottom:64px}
+  .home-h1{font-family:'EB Garamond',Garamond,serif;font-weight:500;font-size:clamp(36px,4.4vw,56px);color:var(--purple);margin:0 0 16px;line-height:1.02}
+  .home-h2{font-family:'EB Garamond',Garamond,serif;font-weight:500;font-size:clamp(22px,2.4vw,32px);color:var(--purple);margin:0 0 12px;line-height:1.05}
+  .home-lede{font-size:clamp(15px,1.35vw,19px);line-height:1.6;color:var(--ink-soft);margin:0;max-width:560px}
+  .home-btns{display:flex;gap:10px;flex-wrap:wrap;margin-top:28px}
+  .home-btns .btn-outline{padding:9px 18px;font-size:11px}
+  .home-photo{aspect-ratio:3/4;border-radius:6px;overflow:hidden;position:sticky;top:24px;box-shadow:0 1px 2px rgba(0,0,0,.04),0 12px 32px rgba(76,40,128,.10)}
+  .home-photo img{width:100%;height:100%;object-fit:cover;display:block}
+  @media(max-width:900px){.home-main-inner{grid-template-columns:1fr;gap:0;padding-top:0;padding-bottom:32px}.home-photo{order:-1;max-height:none;height:56vw;min-height:200px;border-radius:0;margin:0 -22px 28px;width:calc(100% + 44px)}}
+  .article-list{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:14px}
+  .article-list a{font-family:'EB Garamond',Garamond,serif;font-size:19px;color:var(--purple);border-bottom:1px solid var(--purple);padding-bottom:3px;text-decoration:none;display:inline;transition:color .2s}
+  .article-list .meta{font-style:italic;color:var(--ink-muted);font-size:15px}
+  .lavender-band{background:#B8A4DC;padding:60px 0}
+  .quote-card-wix{background:#B8A4DC;border-radius:6px;padding:56px 64px;margin:0 auto 32px;max-width:760px;box-shadow:0 1px 2px rgba(0,0,0,.03),0 4px 16px rgba(76,40,128,.08)}
+  .quote-card-wix .qtext{font-family:'EB Garamond',Garamond,serif;font-style:italic;font-size:26px;line-height:1.6;color:#fff;margin:0 0 24px}
+  .quote-card-wix .qattr{font-family:'Verdana',sans-serif;font-size:11px;font-weight:700;letter-spacing:0.2em;text-transform:uppercase;color:var(--purple);text-align:right}
+  .testimonials-head{text-align:center;padding:40px 0 32px}
+  .voices{font-family:'EB Garamond',Garamond,serif;font-size:clamp(36px,4.4vw,56px);font-weight:500;color:var(--purple);line-height:1.02;margin:0 0 16px}
+  .voices-sub{font-family:'EB Garamond',Garamond,serif;font-style:italic;color:var(--ink-muted);font-size:clamp(18px,1.8vw,24px);margin:0}
+  .testimonials-split{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
+  .testimonials-img{aspect-ratio:3/4;overflow:hidden;border-radius:6px;position:relative}
+  .testimonials-img img{width:100%;height:100%;object-fit:cover;display:block;border-radius:6px;box-shadow:0 1px 2px rgba(0,0,0,.04),0 8px 24px rgba(76,40,128,.18)}
+  .carousel-wrap{max-width:760px;margin:0 auto;width:100%}
+  .carousel-card{min-height:160px;transition:opacity 0.35s ease}
+  .carousel-dots{display:flex;gap:10px;justify-content:center;margin-top:24px;padding:4px 0}
+  .carousel-dot{width:10px;height:10px;border-radius:50%;border:none;background:rgba(255,255,255,0.35);cursor:pointer;padding:0;transition:background .25s,transform .25s}
+  .carousel-dot.active{background:#fff;transform:scale(1.2)}
+  @media(max-width:780px){.testimonials-split{grid-template-columns:1fr;gap:32px}.testimonials-img{aspect-ratio:16/9}}
+  .join-intro-grid{display:grid;grid-template-columns:1.05fr 1fr;gap:64px;align-items:start}
+  @media(max-width:820px){.join-intro-grid{grid-template-columns:1fr;gap:32px}}
+  .join-eyebrow{font-family:'EB Garamond',Garamond,serif;font-size:clamp(36px,4.4vw,56px);font-weight:500;letter-spacing:0;text-transform:none;color:var(--purple);line-height:1.02;margin:0 0 24px}
+  .join-lede{font-size:clamp(18px,1.8vw,24px);line-height:1.6;color:var(--ink-soft);margin:0}
+  .join-commit-sub{color:var(--purple);font-size:clamp(18px,1.8vw,24px);line-height:1.6;margin:0 0 32px;font-family:'EB Garamond',Garamond,serif}
+  .join-commit-list{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:22px}
+  .join-commit-list li{position:relative;padding-left:26px;font-family:'EB Garamond',Garamond,serif;font-size:clamp(18px,1.8vw,24px);line-height:1.6;color:var(--ink)}
+  .join-commit-list li::before{content:"";position:absolute;left:0;top:8px;width:8px;height:8px;background:var(--purple)}
+  .join-lavender-section{background:#C5B4DE;padding:96px 0}
+  .join-steps-grid{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start}
+  @media(max-width:820px){.join-steps-grid{grid-template-columns:1fr;gap:32px}}
+  .join-steps-title{font-family:'EB Garamond',Garamond,serif;font-weight:500;font-size:clamp(40px,5vw,60px);color:var(--purple);margin:0 0 16px;line-height:1.04}
+  .join-steps-sub{font-family:'EB Garamond',Garamond,serif;color:var(--ink-soft);font-size:clamp(18px,1.8vw,24px);line-height:1.6;margin:0 0 40px}
+  .join-steps-list{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:32px}
+  .join-steps-list li{display:grid;grid-template-columns:auto 1fr;gap:18px;align-items:start}
+  .step-n{font-family:'EB Garamond',Garamond,serif;font-weight:500;font-size:28px;color:var(--purple);line-height:1;min-width:22px}
+  .step-body p{font-family:'EB Garamond',Garamond,serif;color:var(--ink);font-size:clamp(18px,1.8vw,24px);line-height:1.6;margin:0}
+  .step-cta{display:inline-block;margin-top:14px;padding:11px 26px;background:var(--purple);color:#fff;font-family:'Verdana','Geneva',sans-serif;font-size:12px;font-weight:700;letter-spacing:0.06em;text-decoration:none;border:none;border-bottom:none;border-radius:3px;transition:background .2s}
+  .step-cta:hover{background:var(--purple-deep);color:#fff;border-color:transparent}
+  .ras-head{text-align:center;padding:88px 0 0}
+  .ras-head h1{font-family:'EB Garamond',Garamond,serif;font-weight:500;font-size:clamp(36px,4.4vw,56px);letter-spacing:0;text-transform:none;color:var(--purple);margin:0 0 4px;line-height:1.02}
+  .ras-sub{font-family:'EB Garamond',Garamond,serif;font-style:italic;color:var(--ink-muted);font-size:clamp(14px,1.4vw,17px);max-width:640px;margin:0 auto;line-height:1.5}
+  .ras-intro-grid{display:grid;grid-template-columns:1fr 1.05fr;gap:48px;align-items:start;padding:48px 0}
+  @media(max-width:820px){.ras-intro-grid{grid-template-columns:1fr;gap:32px}}
+  .ras-intro-grid h2{font-family:'EB Garamond',Garamond,serif;font-weight:500;font-size:clamp(28px,3.4vw,44px);color:var(--purple);margin:0 0 24px;line-height:1.05}
+  .ras-intro-grid p{font-size:clamp(15px,1.35vw,19px);line-height:1.6;color:var(--ink-soft);margin:0 0 16px}
+  .ras-chapter-list{list-style:disc;padding-left:24px;margin:8px 0 0}
+  .ras-chapter-list li{font-size:clamp(15px,1.35vw,19px);line-height:1.7;color:var(--ink-soft)}
+  .ras-form-section{padding:24px 0 96px}
+  .ras-form-title{font-family:'EB Garamond',Garamond,serif;font-weight:500;font-size:clamp(28px,3.4vw,44px);color:var(--purple);margin:0 0 8px}
+  .ras-form .field label{font-family:'Verdana','Geneva',sans-serif;font-size:13px;font-weight:400;letter-spacing:0;text-transform:none;color:var(--ink-soft);margin-bottom:6px}
+  .ras-form .field input,.ras-form .field textarea,.ras-form .field select{background:#fff;border:1px solid #C9C2D4;border-radius:3px;padding:12px 14px}
+  .ras-toggle-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .ras-toggle-btn{padding:18px 12px;background:#fff;border:1px solid #C9C2D4;border-radius:3px;font-family:'EB Garamond',Garamond,serif;font-size:17px;color:var(--ink-soft);cursor:pointer;transition:all .15s;text-align:center}
+  .ras-toggle-btn:hover{border-color:var(--purple)}
+  .ras-toggle-btn.selected{background:var(--purple-mist);border:2px solid var(--purple);color:var(--purple-deep);font-weight:500}
+  .ras-radio-row{display:flex;gap:32px;padding:6px 0}
+  .ras-radio-row label{display:inline-flex;align-items:center;gap:10px;cursor:pointer;font-family:'EB Garamond',Garamond,serif;font-size:16px;color:var(--ink-soft);font-weight:400;letter-spacing:0;text-transform:none}
+  .ras-radio-row input[type=radio]{width:18px;height:18px;accent-color:var(--purple);margin:0;flex-shrink:0}
+  .ras-submit{width:100%;padding:18px;background:var(--purple);color:#fff;border:none;border-radius:3px;cursor:pointer;font-family:'Verdana','Geneva',sans-serif;font-size:14px;font-weight:700;letter-spacing:0.06em;transition:background .2s;margin-top:8px}
+  .ras-submit:hover{background:var(--purple-deep)}
+  .ras-req{color:var(--purple);margin-left:3px}
+  .field{display:flex;flex-direction:column;gap:8px;margin-bottom:22px}
+  .field label{font-size:12px;letter-spacing:0.14em;text-transform:uppercase;color:var(--ink-muted);font-weight:600}
+  .field input,.field textarea,.field select{font-family:'EB Garamond',Garamond,serif;font-size:16px;color:var(--ink);background:var(--bg-card);border:1px solid var(--rule);border-radius:4px;padding:14px 16px;transition:border-color .2s,background .2s;outline:none}
+  .field input:focus,.field textarea:focus{border-color:var(--purple);background:var(--paper);box-shadow:0 0 0 3px var(--purple-mist)}
+  .field textarea{resize:vertical;min-height:120px;font-family:inherit}
+  .form-row{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+  @media(max-width:640px){.form-row{grid-template-columns:1fr}}
+  .form-success{padding:48px;text-align:center;background:var(--bg-card);border:1px solid var(--green);border-radius:8px}
+  .form-success .check-icon{width:56px;height:56px;border-radius:50%;background:var(--green-deep);color:var(--paper);display:flex;align-items:center;justify-content:center;margin:0 auto 24px}
+  .gate{min-height:calc(100vh - 88px);display:flex;align-items:center;justify-content:center;padding:48px 24px;background:linear-gradient(180deg,var(--bg) 0%,var(--bg-deep) 100%)}
+  .gate-card{background:var(--paper);border:1px solid var(--rule);border-radius:8px;padding:56px 48px;max-width:460px;width:100%;box-shadow:var(--shadow);text-align:center}
+  .donate-grid{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:start}
+  @media(max-width:820px){.donate-grid{grid-template-columns:1fr;gap:32px}}
+  .donate-photo{aspect-ratio:4/5;border-radius:6px;overflow:hidden}
+  .inq-section{margin-top:48px}
+  .inq-section h2{font-family:'EB Garamond',Garamond,serif;font-weight:500;font-size:clamp(22px,2.4vw,28px);color:var(--ink);margin:0 0 24px}
+  .inq-form .field label{font-family:'Verdana','Geneva',sans-serif;font-size:13px;font-weight:400;letter-spacing:0;text-transform:none;color:var(--ink-soft);margin-bottom:6px}
+  .inq-form .field input,.inq-form .field textarea,.inq-form .field select{background:#fff;border:1px solid #C9C2D4;border-radius:3px;padding:12px 14px}
+  .inq-radio-group{display:flex;flex-direction:column;gap:8px;padding:6px 0}
+  .inq-radio-group label{display:inline-flex;align-items:center;gap:10px;cursor:pointer;font-family:'EB Garamond',Garamond,serif;font-size:15px;color:var(--ink-soft);font-weight:400;letter-spacing:0;text-transform:none;padding:0}
+  .inq-radio-group input[type=radio]{width:16px;height:16px;accent-color:var(--purple);margin:0;flex-shrink:0}
+  .inq-q{margin-bottom:18px}
+  .inq-q-label{font-family:'Verdana','Geneva',sans-serif;font-size:13px;color:var(--ink-soft);margin-bottom:4px;display:block}
+  .inq-context{background:#f2f0f5;border-radius:4px;padding:16px 20px;margin-bottom:24px}
+  .inq-context p{font-family:'Verdana','Geneva',sans-serif;font-size:13px;color:var(--ink-soft);margin:0;line-height:1.6}
+  .members-bar{background:var(--purple-deep);color:var(--paper);border-bottom:1px solid rgba(255,255,255,.1)}
+  .mh-section{position:relative}
+  .mh-h2{font-family:'EB Garamond',Garamond,serif;font-weight:500;font-size:clamp(40px,5vw,64px);color:var(--ink);line-height:1.04;margin:0 0 24px}
+  .mh-h2-centered{font-family:'EB Garamond',Garamond,serif;font-weight:500;font-size:clamp(36px,4.6vw,56px);color:var(--ink);line-height:1.04;margin:0 0 24px}
+  .mh-h2-white{font-family:'EB Garamond',Garamond,serif;font-weight:500;font-size:clamp(40px,5vw,64px);color:#fff;line-height:1.04;margin:0 0 40px}
+  .mh-body{font-family:'EB Garamond',Garamond,serif;color:var(--ink-soft);font-size:16px;line-height:1.55;margin:0 0 24px;max-width:540px}
+  .mh-grid{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center}
+  @media(max-width:820px){.mh-grid{grid-template-columns:1fr}}
+  .mh-purple-band{height:180px;background:var(--purple)}
+  .mh-dark-card{background:#3D3744;color:#fff;padding:48px 32px;border-radius:6px;display:flex;flex-direction:column;align-items:center;gap:8px;margin-top:16px}
+  .mh-dark-card p{font-family:'EB Garamond',Garamond,serif;font-size:16px;color:#E5E0EC}
+  .mh-white-btn{color:#fff !important;border-color:#fff !important;background:transparent}
+  .mh-white-btn:hover{background:#fff !important;color:var(--purple) !important}
+  .mh-purple-section{background:var(--purple);color:#fff;padding:96px 0}
+  .mh-card-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+  @media(max-width:820px){.mh-card-grid{grid-template-columns:1fr}}
+  .mh-card{background:#fff;border-radius:6px;padding:36px 32px;box-shadow:0 1px 2px rgba(0,0,0,.04),0 12px 32px rgba(0,0,0,.10)}
+  .mh-card h3{font-family:'EB Garamond',Garamond,serif;font-weight:500;font-size:26px;color:var(--ink);margin:0 0 14px}
+  .mh-card p{font-family:'EB Garamond',Garamond,serif;color:var(--ink-soft);font-size:15px;line-height:1.55;margin:0 0 24px}
+  .fade-in{animation:fadeIn .5s ease}
+  @keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+  footer{background:#EBE2F3;color:var(--ink-soft);padding:0;margin-top:0;border-top:1px solid var(--purple-light)}
+  .skip{position:absolute;left:-9999px;top:0}
+  .skip:focus{left:16px;top:16px;background:var(--purple);color:var(--paper);padding:8px 14px;border-radius:4px;z-index:99}
+
+  /* ── Privacy Policy & Terms of Service pages ── */
+  .legal-hero{background:var(--purple);padding:2.5rem 2rem 2.25rem;text-align:left}
+  .legal-hero-inner{max-width:760px;margin:0 auto}
+  .legal-title{font-family:'EB Garamond',Garamond,serif;font-size:clamp(1.9rem,5vw,2.75rem);font-weight:normal;color:#fff;line-height:1.2;margin-bottom:0.4rem}
+  .legal-date{font-size:0.85rem;color:rgba(255,255,255,0.75);font-style:italic}
+  .legal-main{max-width:760px;margin:0 auto;padding:3rem 2rem 5rem}
+  .legal-toc{background:var(--purple-mist);border-left:4px solid var(--purple);padding:1.5rem 1.75rem;margin-bottom:3rem;border-radius:0 4px 4px 0}
+  .legal-toc-heading{font-family:'EB Garamond',Garamond,serif;font-size:1rem;font-weight:bold;color:var(--purple-deep);margin-bottom:0.75rem;text-transform:uppercase;letter-spacing:0.07em}
+  .legal-toc ol{padding-left:1.25rem}
+  .legal-toc li{margin:0.3rem 0}
+  .legal-toc a{color:var(--purple);text-decoration:none;font-size:0.9rem;transition:color .2s}
+  .legal-toc a:hover{color:var(--purple-deep);text-decoration:underline}
+  .legal-section{margin-bottom:2.5rem;padding-bottom:2.5rem;border-bottom:1px solid var(--rule)}
+  .legal-section:last-of-type{border-bottom:none}
+  .legal-h2{font-family:'EB Garamond',Garamond,serif;font-size:clamp(1.3rem,3vw,1.6rem);font-weight:normal;color:var(--purple);margin-bottom:1rem;line-height:1.3}
+  .legal-h2 .num{display:inline-block;font-size:0.68em;color:var(--purple-deep);font-weight:bold;letter-spacing:0.1em;margin-right:0.45rem;vertical-align:middle;opacity:0.7}
+  .legal-main p{margin-bottom:1rem;font-size:0.97rem;color:var(--ink)}
+  .legal-main ul,.legal-main ol{padding-left:1.5rem;margin-bottom:1rem}
+  .legal-main li{margin:0.4rem 0;font-size:0.97rem}
+  .legal-callout{background:var(--purple-mist);border-left:4px solid #e0cced;padding:1rem 1.25rem;border-radius:0 4px 4px 0;font-size:0.93rem;margin:1.25rem 0;color:var(--ink)}
+  .legal-footer{background:var(--purple-deep);color:rgba(255,255,255,0.75);text-align:center;padding:2rem;font-size:0.83rem}
+  .legal-footer a{color:rgba(255,255,255,0.9)}
+  .legal-footer-links{margin-top:0.6rem;display:flex;justify-content:center;gap:1.5rem;flex-wrap:wrap}
+  .legal-footer-links a{text-decoration:none}
+</style>
+</head>
+<body>
+<div class="top-stripe"></div>
+<div id="app"></div>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script type="text/babel" data-presets="react">
+const { useState, useEffect, useRef } = React;
+const LOGO_URL = "/assets/squarelogo-transparent_0.png";
+const Mark = ({ size = 56 }) => (
+  <img src={LOGO_URL} alt="Threshold Choir" width={size} height={size}
+    style={{width:size,height:size,display:"block",flexShrink:0,objectFit:"contain"}}/>
+);
+const Icons = {
+  menu: <svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" strokeWidth="1.4"><path d="M4 7 H 18 M 4 11 H 18 M 4 15 H 18" strokeLinecap="round"/></svg>,
+  close: <svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" strokeWidth="1.4"><path d="M5 5 L 17 17 M 17 5 L 5 17" strokeLinecap="round"/></svg>,
+  check: <svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="currentColor" strokeWidth="2"><path d="M7 14 L 12 19 L 21 9" strokeLinecap="round" strokeLinejoin="round"/></svg>,
+  lock: <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" strokeWidth="1.3"><rect x="8" y="14" width="16" height="13" rx="1.5"/><path d="M11 14 V 10 C 11 7 13 5 16 5 C 19 5 21 7 21 10 V 14"/><circle cx="16" cy="20" r="1.5" fill="currentColor"/></svg>,
+};
+
+const useRoute = () => {
+  const get = () => { const h=(window.location.hash||"#/").replace(/^#/,""); return h.startsWith("/")?h:"/"+h; };
+  const [route,setRoute]=useState(get());
+  useEffect(()=>{
+    const onHash=()=>{setRoute(get());window.scrollTo({top:0,behavior:"instant" in window?"instant":"auto"});};
+    window.addEventListener("hashchange",onHash);
+    return ()=>window.removeEventListener("hashchange",onHash);
+  },[]);
+  return route;
+};
+const navigate=(path)=>{window.location.hash=path;};
+
+const Nav = ({route}) => {
+  const [open,setOpen]=useState(false);
+  const links=[{to:"/",label:"Home"},{to:"/testimonials",label:"Testimonials"},{to:"/join",label:"Join Choir"},{to:"/members",label:"Members Hub"}];
+  const onClick=(to)=>(e)=>{e.preventDefault();setOpen(false);navigate(to);};
+  return (
+    <header className="nav" style={{position:"relative"}}>
+      <div className="container nav-inner">
+        <a href="#/" className="brand" onClick={onClick("/")} aria-label="Greater Hartford Threshold Choir — Home">
+          <Mark size={72}/>
+        </a>
+        <button className="menu-btn" onClick={()=>setOpen(o=>!o)} aria-label={open?"Close menu":"Open menu"} aria-expanded={open}>
+          {open?Icons.close:Icons.menu}
+        </button>
+        <nav className={`nav-links${open?" open":""}`}>
+          {links.map(l=>(
+            <a key={l.to} href={"#"+l.to} onClick={onClick(l.to)}
+               className={`nav-link${route===l.to?" active":""}`}>{l.label}</a>
+          ))}
+        </nav>
+      </div>
+    </header>
+  );
+};
+
+const Footer = () => (
+  <footer>
+    <div className="container">
+      <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",flexWrap:"wrap",gap:12,padding:"10px 0"}}>
+        <div style={{fontSize:12,color:"var(--ink-soft)",fontFamily:"'EB Garamond',Garamond,serif"}}>© 2026 Greater Hartford Threshold Choir</div>
+        <a href="mailto:thresholdchoirhartford@gmail.com" style={{color:"var(--ink-soft)",borderBottom:"none",fontSize:12,fontFamily:"'EB Garamond',Garamond,serif"}}>thresholdchoirhartford@gmail.com</a>
+        <div style={{display:"flex",gap:16,flexWrap:"wrap"}}>
+          <a href="#/privacy-policy" onClick={(e)=>{e.preventDefault();navigate("/privacy-policy");}} style={{fontSize:12,color:"var(--ink-soft)",fontFamily:"'EB Garamond',Garamond,serif",borderBottom:"1px solid var(--ink-soft)"}}>Privacy Policy</a>
+          <a href="#/terms-of-service" onClick={(e)=>{e.preventDefault();navigate("/terms-of-service");}} style={{fontSize:12,color:"var(--ink-soft)",fontFamily:"'EB Garamond',Garamond,serif",borderBottom:"1px solid var(--ink-soft)"}}>Terms of Service</a>
+          <a href="https://www.brynn.digital/" target="_blank" rel="noopener noreferrer" style={{fontSize:12,color:"var(--ink-soft)",fontFamily:"'EB Garamond',Garamond,serif",borderBottom:"1px solid var(--ink-soft)"}}>Designed &amp; built by Brynn Digital</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+);
+
+const Home = () => (
+  <main id="main" className="fade-in">
+    <section className="purple-band">
+      <div className="container">
+        <h2 className="band-title" style={{fontSize:"clamp(30px,3.6vw,44px)",marginBottom:8,fontWeight:500}}>Greater Hartford Threshold Choir</h2>
+        <p className="band-sub" style={{fontSize:"clamp(15px,1.4vw,18px)"}}>One Choir, Many Voices. Singing gently at the thresholds of life in over 150 communities around the world.</p>
+      </div>
+    </section>
+    <section style={{padding:0}}>
+      <div className="container home-main-inner">
+        <div style={{display:"flex",flexDirection:"column",gap:0}}>
+          <div>
+            <h1 className="home-h1">Kindness Made Audible</h1>
+            <div style={{display:"flex",flexDirection:"column",gap:18}}>
+              <p className="home-lede">The Greater Hartford Threshold Choir is a community of voices dedicated to bringing comfort and calm to those at life's final threshold. We believe in the power of gentle song to offer peace, kindness, and a reassuring presence during sacred moments of transition.</p>
+              <p className="home-lede">As we near the end of life, the sense of hearing is the last to go. The Threshold Choirs were established internationally to offer gentle songs of peace, comfort, and caring during the last days before leaving this life.</p>
+              <p className="home-lede">The inspirational, secular songs were composed by the founders and are sung <em>a cappella</em> in 2 or 3-part harmony. When invited, we send 2–5 singers who offer soft, simple, restful songs to support those during life's most tender moments, as well as their caregivers and families.</p>
+            </div>
+          </div>
+          <div style={{marginTop:28}}>
+            <h2 className="home-h2">Who We Serve</h2>
+            <p className="home-lede">Patients in hospice care, long-term facilities, and private homes across <strong>Avon, Bloomfield, Canton, Farmington, Granby, Hartford, Simsbury, South Windsor, West Hartford, Windsor</strong>. Don't see your town? Reach out.</p>
+            <div className="home-btns">
+              <a href="#/request-a-sing" className="btn-outline" onClick={(e)=>{e.preventDefault();navigate("/request-a-sing");}}>Request a Sing</a>
+              <a href="#/donate" className="btn-outline" onClick={(e)=>{e.preventDefault();navigate("/donate");}}>Donate</a>
+              <a href="#/join" className="btn-outline" onClick={(e)=>{e.preventDefault();navigate("/join");}}>Join Us</a>
+              <a href="mailto:thresholdchoirhartford@gmail.com" className="btn-outline">Contact Us</a>
+            </div>
+          </div>
+          <div style={{marginTop:28}}>
+            <h2 className="home-h2">In the News</h2>
+            <ul className="article-list">
+              <li><a href="/assets/threshold-choir-valley-life-article.pdf" target="_blank" rel="noopener noreferrer" style={{borderBottom:"none",textDecoration:"none"}}>Threshold Choir: Kindness Made Audible</a> <span className="meta">(April 2026)</span></li>
+            </ul>
+          </div>
+        </div>
+        <div className="home-photo">
+          <img src="/assets/lake-with-clouds.jpg" alt="Lake McDonough in Greater Hartford, Connecticut"/>
+        </div>
+      </div>
+    </section>
+  </main>
+);
+
+const QuoteCarousel = ({cards}) => {
+  const [idx,setIdx]=useState(0);
+  const [paused,setPaused]=useState(false);
+  const [fading,setFading]=useState(false);
+  const goTo=(i)=>{setFading(true);setTimeout(()=>{setIdx(i);setFading(false);},350);};
+  useEffect(()=>{if(paused)return;const t=setInterval(()=>{goTo((idx+1)%cards.length);},90000);return()=>clearInterval(t);},[idx,paused]);
+  const c=cards[idx];
+  return (
+    <div className="carousel-wrap" onMouseEnter={()=>setPaused(true)} onMouseLeave={()=>setPaused(false)}>
+      <article className="quote-card-wix carousel-card" style={{opacity:fading?0:1}}>
+        <p className="qtext">"{c.text}"{c.link&&<>{' '}<a href={c.link.href} target="_blank" rel="noopener noreferrer" style={{fontStyle:"normal",fontSize:"0.85em",color:"#fff",borderBottom:"1px solid #fff"}}>{c.link.label}</a>.</>}</p>
+        <div className="qattr">{c.attr}</div>
+      </article>
+      <div className="carousel-dots">
+        {cards.map((_,i)=>(
+          <button key={i} className={`carousel-dot${i===idx?" active":""}`} onClick={()=>goTo(i)} aria-label={`Quote ${i+1}`}/>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+const Testimonials = () => {
+  const cards=[
+    {text:"When members of the Threshold Choir sing at bedside their voices create an energy of calm and gentle holding. A blessing of peace for everyone present.",attr:"Choir Member"},
+    {text:"Thank you from the bottom of my heart for providing our family with the gift of your voices. Music is so releasing — thank you for setting us on that path with your blessed offering.",attr:"Family Member"},
+    {text:"A beautiful, gentle gift of song that stays in the heart long after the voices fade.",attr:"Hospice Caregiver"},
+    {text:"When I sing at bedside, I feel a tranquility and a purpose to bring peace to the person in transition. I feel deeply honored to be a part of their journey.",attr:"Threshold Singer"},
+    {text:"Their presence is like a warm embrace, providing silence and sound in perfect balance.",attr:"Voice of Comfort"},
+    {text:"When four voices gathered around a 99-year-old woman's recliner, music did what words couldn't — touching the hearts of three weeping nieces and honoring a life poised at the threshold of eternity. Read one singer's essay,",attr:"A Singer's Story",link:{label:"Sing Her Over the Threshold",href:"https://happinessisbacon.substack.com/p/sing-her-over-the-threshold"}},
+    {text:"Five singers stepped into a room heavy with grief — a dying man, his exhausted wife of 50 years, children, friends, and even a fussy baby — and watched the whole room go still. Read one singer's essay,",attr:"A Singer's Story",link:{label:"The Weight We Lift",href:"https://happinessisbacon.substack.com/p/over-the-threshold-a-series"}},
+  ];
+  return (
+    <main id="main" className="fade-in">
+      <section className="testimonials-head">
+        <div className="container">
+          <div className="voices">Voices of Comfort</div>
+          <p className="voices-sub">What we've heard from our sings and members.</p>
+        </div>
+      </section>
+      <section className="lavender-band">
+        <div className="container">
+          <div className="testimonials-split">
+            <div className="testimonials-img">
+              <img src="/assets/selected-voice-of-comfort.jpg" alt="A quiet creek winding through a Connecticut forest"/>
+            </div>
+            <div style={{display:"flex",alignItems:"center",justifyContent:"center"}}>
+              <QuoteCarousel cards={cards}/>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section style={{paddingTop:64,paddingBottom:96}}>
+        <div className="container" style={{textAlign:"center"}}>
+          <div style={{display:"inline-flex",gap:16,flexWrap:"wrap",justifyContent:"center"}}>
+            <a href="#/request-a-sing" className="btn-outline" onClick={(e)=>{e.preventDefault();navigate("/request-a-sing");}}>Request a Sing</a>
+            <a href="#/join" className="btn-outline" onClick={(e)=>{e.preventDefault();navigate("/join");}}>Join the Choir</a>
+            <a href="#/donate" className="btn-outline" onClick={(e)=>{e.preventDefault();navigate("/donate");}}>Donate</a>
+            <a href="mailto:thresholdchoirhartford@gmail.com" className="btn-outline">Contact Us</a>
+          </div>
+        </div>
+      </section>
+    </main>
+  );
+};
+
+const Join = () => {
+  const commitments=[
+    {text:"No hospice training required — we provide orientation."},
+    {text:"Regular rehearsal attendance ",bold:"(twice monthly in Farmington Valley)."},
+    {text:"Willingness to learn the Threshold Choir repertoire by heart."},
+    {text:"Sensitivity and respect for diverse faiths and environments."},
+    {text:"Ability to hold your part in small a cappella groups."},
+    {text:"Participation in bedside visits as schedule allows."},
+    {text:"Active participation in chapter outreach."},
+  ];
+  const steps=[
+    {n:1,body:"Visit a rehearsal to meet the singers and observe our practice."},
+    {n:2,body:"Complete our singer interest form.",cta:{label:"Interest form",to:"/inquire"}},
+    {n:3,body:"Meet with our choir director to share your intentions and your voice."},
+    {n:4,body:"Begin your journey as a threshold singer."},
+  ];
+  return (
+    <main id="main" className="fade-in">
+      <section style={{padding:"80px 0 96px"}}>
+        <div className="container">
+          <div className="join-intro-grid">
+            <div>
+              <p className="join-eyebrow">The Gift of Song</p>
+              <p className="join-lede">Joining our choir is a meaningful way to offer comfort through song.</p>
+              <p className="join-commit-sub" style={{marginTop:24}}>We ask our singers to bring both their voice and their whole selves to this work:</p>
+              <ul className="join-commit-list" style={{marginTop:8}}>
+                {commitments.map((c,i)=>(<li key={i}>{c.text}{c.bold&&<strong>{c.bold}</strong>}</li>))}
+              </ul>
+            </div>
+            <div style={{display:"flex",flexDirection:"column",gap:16}}>
+              <div style={{aspectRatio:"1/1",borderRadius:6,overflow:"hidden"}}>
+                <img src="/assets/rehearsal-circle.JPG" alt="Threshold Choir singers seated in a circle during rehearsal" style={{width:"100%",height:"100%",objectFit:"cover",display:"block"}}/>
+              </div>
+              <div style={{display:"flex",gap:16,flexWrap:"wrap",justifyContent:"center"}}>
+                <a href="#/request-a-sing" className="btn-outline" onClick={(e)=>{e.preventDefault();navigate("/request-a-sing");}}>Request a Sing</a>
+                <a href="#/donate" className="btn-outline" onClick={(e)=>{e.preventDefault();navigate("/donate");}}>Donate</a>
+                <a href="mailto:thresholdchoirhartford@gmail.com" className="btn-outline">Contact Us</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section className="join-lavender-section">
+        <div className="container">
+          <div className="join-steps-grid">
+            <div>
+              <h2 className="join-steps-title">Step into the Circle</h2>
+              <p className="join-steps-sub">Joining our choir is a simple, heart-centered process.</p>
+              <ol className="join-steps-list">
+                {steps.map((step)=>(
+                  <li key={step.n}>
+                    <span className="step-n">{step.n}</span>
+                    <div className="step-body">
+                      <p>{step.body}</p>
+                      {step.cta&&(<a href={"#"+step.cta.to} onClick={(e)=>{e.preventDefault();navigate(step.cta.to);}} className="step-cta">{step.cta.label}</a>)}
+                    </div>
+                  </li>
+                ))}
+              </ol>
+            </div>
+            <div style={{aspectRatio:"1/1",borderRadius:6,overflow:"hidden"}}>
+              <img src="/assets/singers-laughing.jpeg" alt="Two Threshold Choir singers laughing together at rehearsal" style={{width:"100%",height:"100%",objectFit:"cover",display:"block",borderRadius:6}}/>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  );
+};
+
+const RequestSing = () => {
+  const [form,setForm]=useState({requestorName:"",phone:"",email:"",patientName:"",setting:"",relationship:"",knowAbout:"",whoPresent:"",hospice:"",heardAbout:"",heardAboutOther:""});
+  const [submitted,setSubmitted]=useState(false);
+  const [errors,setErrors]=useState({});
+  const [sending,setSending]=useState(false);
+  const [sendError,setSendError]=useState("");
+  const submit=async(e)=>{
+    e.preventDefault();
+    const errs={};
+    if(!form.requestorName.trim())errs.requestorName="Required";
+    if(!form.phone.trim())errs.phone="Required";
+    if(!form.email.trim())errs.email="Required";
+    else if(!/^\S+@\S+\.\S+$/.test(form.email))errs.email="Please use a valid email";
+    if(!form.patientName.trim())errs.patientName="Required";
+    if(!form.setting)errs.setting="Please choose one";
+    if(!form.relationship.trim())errs.relationship="Required";
+    if(!form.knowAbout.trim())errs.knowAbout="Required";
+    if(!form.hospice)errs.hospice="Please choose";
+    setErrors(errs);
+    if(Object.keys(errs).length>0)return;
+    setSending(true);setSendError("");
+    const fd=new FormData();
+    const labels={requestorName:"Requestor Name",phone:"Phone",email:"Email",patientName:"Patient Name",setting:"Facility or Private Home",relationship:"Relationship to person requesting sing:",knowAbout:"What would you like us to know about the patient?",whoPresent:"Who will be present at the sing",hospice:"Patient on hospice",heardAbout:"How did you hear about Threshold Choir?",heardAboutOther:"How did you hear (other)"};
+    for(const[k,label]of Object.entries(labels)){const v=form[k];if(v!==undefined&&v!=="")fd.append(label,v);}
+    fd.append("_subject",`Bedside Sing Request \u2014 ${form.patientName||"new request"}`);
+    fd.append("_replyto",form.email||"");
+    fd.append("_cc","8603058127@vtext.com,6177971632@vtext.com");
+    fd.append("_template","table");
+    fd.append("_captcha","false");
+    try{
+      const res=await fetch("https://formsubmit.co/ajax/thresholdchoirhartford@gmail.com",{method:"POST",headers:{"Accept":"application/json"},body:fd});
+      if(res.ok){
+        const zapierData=new FormData();
+        for(const[k,v]of Object.entries(form))zapierData.append(k,v||"");
+        zapierData.append("message",`New Sing Request: ${form.patientName} — ${form.setting}. Contact: ${form.requestorName} at ${form.phone}.`);
+        fetch("https://hooks.zapier.com/hooks/catch/27783461/4bdo30u/",{method:"POST",body:zapierData}).catch(()=>{});
+        setSubmitted(true);
+      }else{throw new Error("Server returned "+res.status);}
+    }catch(err){setSendError("We couldn't send your request just now. Please email us at thresholdchoirhartford@gmail.com or try again in a moment.");}
+    finally{setSending(false);}
+  };
+  const Req=()=><span className="ras-req">*</span>;
+  return (
+    <main id="main" className="fade-in">
+      <header className="ras-head"><div className="container"><h1>Request a Sing</h1><p className="ras-sub" style={{fontStyle:"normal",marginTop:12}}>This is a sacred time. We are grateful you reached out.</p></div></header>
+      <section style={{paddingTop:0,paddingBottom:32}}>
+        <div className="container">
+          <div className="ras-intro-grid">
+            <div><img src="/assets/chair-with-flowers.jpg" alt="A quiet room ready for a visit" style={{width:"100%",height:"100%",objectFit:"cover",display:"block",borderRadius:6}}/></div>
+            <div>
+              <h2>Inviting Kindness to the Bedside</h2>
+              <p>We would be honored to sing at the bedside of your loved one.</p>
+              <p>When you're ready, please share a few details in the form below. One of our coordinators will respond within 24 hours. If you have an urgent need, text Betsy (<a href="sms:8603058127" style={{color:"var(--purple)"}}>860-305-8127</a>) and Betty (<a href="sms:6177971632" style={{color:"var(--purple)"}}>617-797-1632</a>) directly.</p>
+              <p>We currently serve: <strong style={{color:"var(--ink)",fontWeight:500}}>Avon, Bloomfield, Canton, Farmington, Granby, Hartford, Simsbury, South Windsor, West Hartford, and Windsor</strong>.</p>
+              <ul className="ras-chapter-list">
+                <li><a href="https://thresholdchoir.org/westernct/" target="_blank" rel="noopener noreferrer">Threshold Singers of Western CT</a> (Brookfield, CT)</li>
+                <li><a href="mailto:middletown@thresholdchoir.org">Middlesex Threshold Singers</a> (Middletown, CT)</li>
+                <li><a href="mailto:Nutmeg@thresholdchoir.org">Nutmeg Threshold Singers</a> (Woodbury, CT)</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section className="ras-form-section">
+        <div className="container-narrow">
+          <h2 className="ras-form-title">Bedside Singing Request</h2>
+          {submitted?(
+            <div className="form-success fade-in">
+              <div className="check-icon">{Icons.check}</div>
+              <h3 style={{marginBottom:10}}>Request received.</h3>
+              <p className="text-soft" style={{margin:"0 auto",maxWidth:480}}>A coordinator will reach out within a day. If your need is urgent, please email <a href="mailto:thresholdchoirhartford@gmail.com">thresholdchoirhartford@gmail.com</a> directly.</p>
+            </div>
+          ):(
+            <form className="ras-form" onSubmit={submit} noValidate>
+              <div className="form-row">
+                <div className="field"><label htmlFor="rname">Requestor Name <Req/></label><input id="rname" type="text" value={form.requestorName} onChange={e=>setForm({...form,requestorName:e.target.value})}/>{errors.requestorName&&<span style={{color:"#A03A38",fontSize:13}}>{errors.requestorName}</span>}</div>
+                <div className="field"><label htmlFor="rphone">Phone <Req/></label><input id="rphone" type="tel" value={form.phone} onChange={e=>setForm({...form,phone:e.target.value})}/>{errors.phone&&<span style={{color:"#A03A38",fontSize:13}}>{errors.phone}</span>}</div>
+              </div>
+              <div className="form-row">
+                <div className="field"><label htmlFor="remail">Email <Req/></label><input id="remail" type="email" value={form.email} onChange={e=>setForm({...form,email:e.target.value})}/>{errors.email&&<span style={{color:"#A03A38",fontSize:13}}>{errors.email}</span>}</div>
+                <div className="field"><label htmlFor="rpatient">Patient Name <Req/></label><input id="rpatient" type="text" value={form.patientName} onChange={e=>setForm({...form,patientName:e.target.value})}/>{errors.patientName&&<span style={{color:"#A03A38",fontSize:13}}>{errors.patientName}</span>}</div>
+              </div>
+              <div className="field">
+                <label>Facility or private home? <Req/></label>
+                <div className="ras-toggle-row">
+                  <button type="button" className={`ras-toggle-btn${form.setting==="Facility"?" selected":""}`} onClick={()=>setForm({...form,setting:"Facility"})}>Facility</button>
+                  <button type="button" className={`ras-toggle-btn${form.setting==="Private Home"?" selected":""}`} onClick={()=>setForm({...form,setting:"Private Home"})}>Private Home</button>
+                </div>
+                {errors.setting&&<span style={{color:"#A03A38",fontSize:13}}>{errors.setting}</span>}
+              </div>
+              <div className="field"><label htmlFor="rrel">Relationship to person requesting sing: <Req/></label><input id="rrel" type="text" placeholder="e.g. daughter, hospice nurse, chaplain" value={form.relationship} onChange={e=>setForm({...form,relationship:e.target.value})}/>{errors.relationship&&<span style={{color:"#A03A38",fontSize:13}}>{errors.relationship}</span>}</div>
+              <div className="field"><label htmlFor="rknow">What would you like us to know about the patient? <Req/></label><textarea id="rknow" rows={5} value={form.knowAbout} onChange={e=>setForm({...form,knowAbout:e.target.value})} placeholder="Religious preferences, musical tastes, or condition notes"/>{errors.knowAbout&&<span style={{color:"#A03A38",fontSize:13}}>{errors.knowAbout}</span>}</div>
+              <div className="field"><label htmlFor="rwho">Who will be present at the sing?</label><input id="rwho" type="text" placeholder="e.g. just the patient, family of 4, care team" value={form.whoPresent} onChange={e=>setForm({...form,whoPresent:e.target.value})}/></div>
+              <div className="field">
+                <label>Is the patient on hospice? <Req/></label>
+                <div className="ras-radio-row">
+                  <label><input type="radio" name="hospice" value="Yes" checked={form.hospice==="Yes"} onChange={()=>setForm({...form,hospice:"Yes"})}/> Yes</label>
+                  <label><input type="radio" name="hospice" value="No" checked={form.hospice==="No"} onChange={()=>setForm({...form,hospice:"No"})}/> No</label>
+                </div>
+                {errors.hospice&&<span style={{color:"#A03A38",fontSize:13}}>{errors.hospice}</span>}
+              </div>
+              <div className="field" style={{marginTop:24}}>
+                <label htmlFor="rheard">How did you hear about Threshold Choir?</label>
+                <select id="rheard" value={form.heardAbout} onChange={e=>setForm({...form,heardAbout:e.target.value,heardAboutOther:""})}>
+                  <option value="">Select…</option>
+                  <option>Friend/Family</option><option>Hospice</option><option>Church/Synagogue</option><option>An administrator at my facility</option><option>Other</option>
+                </select>
+              </div>
+              {form.heardAbout==="Other"&&(<div className="field" style={{marginTop:12}}><label htmlFor="rheardother">Please tell us more</label><input id="rheardother" type="text" value={form.heardAboutOther} onChange={e=>setForm({...form,heardAboutOther:e.target.value})}/></div>)}
+              <button type="submit" className="ras-submit" disabled={sending}>{sending?"Sending…":"Submit Request"}</button>
+              {sendError&&<p style={{textAlign:"center",color:"#A03A38",fontSize:14,marginTop:14}}>{sendError}</p>}
+            </form>
+          )}
+        </div>
+      </section>
+    </main>
+  );
+};
+
+const Donate = () => (
+  <main id="main" className="fade-in">
+    <header className="ras-head"><div className="container" style={{textAlign:"center"}}><p style={{fontFamily:"'EB Garamond',Garamond,serif",fontSize:"clamp(36px,4.4vw,56px)",fontWeight:500,color:"var(--purple)",lineHeight:1.02,margin:0}}>Support Our Mission</p></div></header>
+    <section style={{paddingTop:24,paddingBottom:96}}>
+      <div className="container">
+        <p style={{fontSize:17,lineHeight:1.65,color:"var(--ink-soft)",marginBottom:48,maxWidth:920}}>The Greater Hartford Threshold Choir offers its singing as a gift — there is never a charge for a bedside visit. Donations make it possible for us to continue this work.</p>
+        <div className="donate-grid">
+          <div>
+            <h2 style={{fontFamily:"'EB Garamond',Garamond,serif",fontWeight:500,fontSize:"clamp(28px,3.4vw,40px)",color:"var(--purple)",margin:"0 0 24px"}}>How to Donate</h2>
+            <div style={{fontSize:16,lineHeight:1.6,color:"var(--ink-soft)",marginBottom:28}}>
+              <p style={{margin:"0 0 4px"}}>Please make your check payable to:</p>
+              <p style={{margin:"0 0 12px"}}>Greater Hartford Threshold Choir</p>
+              <p style={{margin:"0 0 4px"}}>And mail to:</p>
+              <p style={{margin:0}}><strong style={{color:"var(--ink)",fontWeight:700}}>Ann Nichols</strong></p>
+              <p style={{margin:0}}>60 Mountain View Drive</p>
+              <p style={{margin:0}}>West Hartford, CT 06117</p>
+            </div>
+            <p style={{fontSize:16,lineHeight:1.6,color:"var(--ink-soft)",margin:0,maxWidth:520}}>The Greater Hartford Threshold Choir is a 501(c)(3) nonprofit organization. Your donation may be tax-deductible.</p>
+          </div>
+          <div className="donate-photo"><img src="/assets/hands-with-flower.jpg" alt="Cupped hands holding a small purple wildflower" style={{width:"100%",height:"100%",objectFit:"cover",display:"block",borderRadius:6}}/></div>
+        </div>
+      </div>
+    </section>
+  </main>
+);
+
+const MEMBERS_PASSWORD="harmony2009";
+const PasswordGate=({onUnlock})=>{
+  const [pw,setPw]=useState("");const [err,setErr]=useState("");const inputRef=useRef(null);
+  useEffect(()=>{inputRef.current&&inputRef.current.focus();},[]);
+  const submit=(e)=>{e.preventDefault();if(pw===MEMBERS_PASSWORD){sessionStorage.setItem("ghtc-member","1");onUnlock();}else{setErr("That password doesn't match. Please try again or contact your chapter leader.");}};
+  return(
+    <div className="gate fade-in">
+      <div className="gate-card">
+        <Mark size={72}/>
+        <h2 style={{marginBottom:12,fontFamily:"'EB Garamond',Garamond,serif",fontSize:"clamp(36px,4.4vw,56px)",fontWeight:500,color:"var(--purple)",letterSpacing:0,lineHeight:1.02}}>Members Hub</h2>
+        <p style={{margin:"0 0 32px",color:"var(--ink-soft)"}}>For current Greater Hartford Threshold Choir members only.</p>
+        <form onSubmit={submit}>
+          <input ref={inputRef} type="password" value={pw} onChange={e=>{setPw(e.target.value);setErr("");}} placeholder="Enter password" style={{width:"100%",padding:"14px 16px",fontSize:16,border:"1px solid var(--rule)",borderRadius:4,background:"var(--bg-card)",fontFamily:"inherit",color:"var(--ink)",outline:"none",marginBottom:12}}/>
+          <button type="submit" className="btn btn-primary" style={{width:"100%",justifyContent:"center",padding:"15px",display:"flex"}}>Enter</button>
+          {err&&<div style={{color:"#A03A38",fontSize:14,marginTop:10}}>{err}</div>}
+        </form>
+      </div>
+    </div>
+  );
+};
+
+const MembersDashboard=({onLogout})=>{
+  const [singForm,setSingForm]=useState({date:"",location:"",singers:"",notes:""});
+  const [singSubmitted,setSingSubmitted]=useState(false);
+  const [singSending,setSingSending]=useState(false);
+  const submitSing=async(e)=>{
+    e.preventDefault();if(!singForm.date||!singForm.location.trim())return;setSingSending(true);
+    const fd=new FormData();fd.append("Date of Sing",singForm.date);fd.append("Location",singForm.location);if(singForm.singers.trim())fd.append("Singers Present",singForm.singers);if(singForm.notes.trim())fd.append("Notes",singForm.notes);fd.append("_subject",`Sing Data Submission — ${singForm.date}`);fd.append("_template","table");fd.append("_captcha","false");
+    try{const res=await fetch("https://formsubmit.co/ajax/thresholdchoirhartford@gmail.com",{method:"POST",headers:{"Accept":"application/json"},body:fd});if(res.ok)setSingSubmitted(true);}catch(err){}
+    setSingSending(false);
+  };
+  return(
+    <main id="main" className="fade-in">
+      <div className="members-bar"><div className="container" style={{display:"flex",justifyContent:"space-between",alignItems:"center",padding:"18px 0",gap:16}}><div style={{fontSize:11,fontFamily:"'Verdana',sans-serif",fontWeight:700,letterSpacing:"0.26em",textTransform:"uppercase",color:"var(--purple-mist)"}}>Members Hub · Greater Hartford Threshold Choir</div><button style={{color:"#fff",border:"1px solid rgba(255,255,255,.4)",borderRadius:999,padding:"8px 16px",fontSize:13,letterSpacing:"0.06em",fontFamily:"'Verdana',sans-serif",fontWeight:700}} onClick={onLogout}>Sign out</button></div></div>
+      <section className="mh-section" style={{paddingTop:80,paddingBottom:80}}><div className="container"><div className="mh-grid"><div><h2 className="mh-h2">Members Roster</h2><p className="mh-body">Access the internal directory for communication and community networking.</p><a href="#" onClick={(e)=>e.preventDefault()} className="btn-outline" style={{marginTop:8}}>View Roster Document</a></div></div></div></section>
+      <section className="mh-section" style={{padding:"64px 0",background:"var(--bg-deep)"}}>
+        <div className="container-narrow">
+          <h2 className="mh-h2">Sing Data Submission</h2>
+          <p className="mh-body" style={{marginBottom:32}}>Record your singing dates and locations here.</p>
+          {singSubmitted?(
+            <div className="form-success fade-in"><div className="check-icon">{Icons.check}</div><h3 style={{marginBottom:10}}>Submission recorded.</h3><button className="btn-outline" style={{marginTop:24}} onClick={()=>{setSingSubmitted(false);setSingForm({date:"",location:"",singers:"",notes:""});}}>Submit another</button></div>
+          ):(
+            <form className="ras-form" onSubmit={submitSing} noValidate>
+              <div className="form-row">
+                <div className="field"><label htmlFor="sdate">Date of Sing <span className="ras-req">*</span></label><input id="sdate" type="date" value={singForm.date} onChange={e=>setSingForm({...singForm,date:e.target.value})}/></div>
+                <div className="field"><label htmlFor="sloc">Location <span className="ras-req">*</span></label><input id="sloc" type="text" placeholder="e.g. McLean Home / private residence in Simsbury" value={singForm.location} onChange={e=>setSingForm({...singForm,location:e.target.value})}/></div>
+              </div>
+              <div className="field"><label htmlFor="ssingers">Singers Present</label><input id="ssingers" type="text" value={singForm.singers} onChange={e=>setSingForm({...singForm,singers:e.target.value})}/></div>
+              <div className="field"><label htmlFor="snotes">Notes</label><textarea id="snotes" rows={4} value={singForm.notes} onChange={e=>setSingForm({...singForm,notes:e.target.value})}/></div>
+              <button type="submit" className="ras-submit" disabled={singSending}>{singSending?"Sending…":"Submit Sing Data"}</button>
+            </form>
+          )}
+        </div>
+      </section>
+      <div className="mh-purple-band"></div>
+      <section className="mh-section" style={{paddingTop:64,paddingBottom:80}}><div className="container"><h2 className="mh-h2">Practice Calendar</h2><p className="mh-body" style={{marginBottom:40,maxWidth:560}}>Stay updated with our rehearsal and sing schedule.</p><div className="mh-dark-card"><p style={{margin:"0 0 24px",textAlign:"center"}}>The practice and outreach calendar is managed as a shared document for our members.</p><a href="#" onClick={(e)=>e.preventDefault()} className="btn-outline mh-white-btn">View Practice Calendar</a></div></div></section>
+      <section className="mh-section mh-purple-section"><div className="container"><h2 className="mh-h2-white">Outreach Resources</h2><div className="mh-card-grid"><div className="mh-card"><h3>Working List</h3><p>Access the current working list to coordinate client connections and manage outreach efforts effectively.</p><a href="#" onClick={(e)=>e.preventDefault()} className="btn-outline">Access List</a></div><div className="mh-card"><h3>Scripts</h3><p>Review prepared scripts for consistent and compassionate communication with families and hospice care facilities.</p><a href="#" onClick={(e)=>e.preventDefault()} className="btn-outline">View Scripts</a></div></div></div></section>
+      <section className="mh-section" style={{padding:"96px 0",textAlign:"center"}}><div className="container-narrow"><h2 className="mh-h2-centered">Planning<br/>Committee</h2><p className="mh-body" style={{maxWidth:520,margin:"0 auto 32px"}}>Materials and updates for committee members facilitating our mission and coordination.</p><a href="#" onClick={(e)=>e.preventDefault()} className="btn-outline">Planning Committee Materials</a></div></section>
+    </main>
+  );
+};
+
+const Members=()=>{
+  const [authed,setAuthed]=useState(()=>sessionStorage.getItem("ghtc-member")==="1");
+  if(!authed)return <PasswordGate onUnlock={()=>setAuthed(true)}/>;
+  return <MembersDashboard onLogout={()=>{sessionStorage.removeItem("ghtc-member");setAuthed(false);}}/>;
+};
+
+// ── PRIVACY POLICY PAGE ──
+const PrivacyPolicy = () => (
+  <main id="main" className="fade-in">
+    <header className="legal-hero">
+      <div className="legal-hero-inner">
+        <h1 className="legal-title">Privacy Policy</h1>
+        <p className="legal-date">Effective Date: June 8, 2025</p>
+      </div>
+    </header>
+    <div className="legal-main">
+      <nav className="legal-toc" aria-label="Table of contents">
+        <p className="legal-toc-heading">Contents</p>
+        <ol>
+          <li><a href="#pp1">Information We Collect</a></li>
+          <li><a href="#pp2">How We Use Your Information</a></li>
+          <li><a href="#pp3">Location Data</a></li>
+          <li><a href="#pp4">How We Share Your Information</a></li>
+          <li><a href="#pp5">Data Retention</a></li>
+          <li><a href="#pp6">Cookies &amp; Tracking</a></li>
+          <li><a href="#pp7">Your Rights &amp; Choices</a></li>
+          <li><a href="#pp8">Children's Privacy</a></li>
+          <li><a href="#pp9">Security</a></li>
+          <li><a href="#pp10">Changes to This Policy</a></li>
+          <li><a href="#pp11">Contact Us</a></li>
+        </ol>
+      </nav>
+      <p>The Greater Hartford Threshold Choir ("we," "us," or "our") operates the website <strong>thresholdchoirhartford.com</strong>. This Privacy Policy describes how we collect, use, and protect information you provide when visiting or using our site.</p>
+      <div className="legal-callout"><strong>Important:</strong> The only way we collect personal information on this website is through the <strong>Request a Sing</strong> form. We do not collect personal data through any other page or feature of this site.</div>
+      <div className="legal-section" id="pp1"><h2 className="legal-h2"><span className="num">01</span>Information We Collect</h2><p>We collect personal information <strong>only</strong> when you voluntarily submit the <strong>Request a Sing</strong> form on our website. Through this form, we may collect:</p><ul><li><strong>Contact Information:</strong> Your name and email address so we can follow up with you about your request.</li><li><strong>Location Information:</strong> The city or general area where the sing is being requested, used solely to coordinate our volunteer singers for the visit. We do not collect precise GPS data.</li><li><strong>Request Details:</strong> Information about the person you are requesting a sing for, such as their situation, availability, and any preferences you share to help us serve them with care.</li></ul><p>We also automatically collect limited technical data when you visit our site (such as browser type, IP address, and pages visited) for site maintenance and analytics purposes only.</p></div>
+      <div className="legal-section" id="pp2"><h2 className="legal-h2"><span className="num">02</span>How We Use Your Information</h2><p>Information submitted through the Request a Sing form is used exclusively to:</p><ul><li>Respond to your request and coordinate a bedside singing visit</li><li>Communicate with you about scheduling, timing, and logistics</li><li>Match your request with available volunteer singers in your area</li><li>Follow up with you after the visit if appropriate</li><li>Comply with applicable legal obligations</li></ul><p>We will never use your information for purposes unrelated to fulfilling your Request a Sing submission or the Greater Hartford Threshold Choir's mission.</p></div>
+      <div className="legal-section" id="pp3"><h2 className="legal-h2"><span className="num">03</span>Location Data</h2><p>Location information is collected <strong>only</strong> through the Request a Sing form, where you provide the city or general area where a singing visit is needed. This information is used solely to coordinate and dispatch available volunteer singers near that location.</p><div className="legal-callout">We do not collect precise GPS coordinates, and we do not share location data with third parties for advertising purposes. Location is used only to fulfill your specific singing request.</div><p>You are never required to enable device location access to use this website.</p></div>
+      <div className="legal-section" id="pp4"><h2 className="legal-h2"><span className="num">04</span>How We Share Your Information</h2><p>We do not sell, rent, or trade your personal information. We may share information only in these limited circumstances:</p><ul><li><strong>Service Providers:</strong> Trusted third-party vendors who help us operate our website, bound by confidentiality obligations.</li><li><strong>Legal Requirements:</strong> If required by law, court order, or to protect the rights and safety of our organization or others.</li><li><strong>Organizational Affiliates:</strong> We may share information with the broader Threshold Choir network (thresholdchoir.org) when relevant to connecting you with services.</li></ul></div>
+      <div className="legal-section" id="pp5"><h2 className="legal-h2"><span className="num">05</span>Data Retention</h2><p>We retain your personal information only as long as necessary to fulfill the purposes described in this policy, or as required by law.</p></div>
+      <div className="legal-section" id="pp6"><h2 className="legal-h2"><span className="num">06</span>Cookies &amp; Tracking</h2><p>Our website may use cookies and similar technologies to enhance your browsing experience and understand how visitors use our site. These may include essential cookies for basic site functionality and analytics cookies to understand aggregate site usage. You may configure your browser to refuse cookies.</p></div>
+      <div className="legal-section" id="pp7"><h2 className="legal-h2"><span className="num">07</span>Your Rights &amp; Choices</h2><p>Depending on your location, you may have the right to access, correct, or delete your personal information, opt out of marketing emails, or withdraw consent for location data collection. To exercise any of these rights, please contact us at the address below.</p></div>
+      <div className="legal-section" id="pp8"><h2 className="legal-h2"><span className="num">08</span>Children's Privacy</h2><p>Our website is not directed to children under the age of 13. We do not knowingly collect personal information from children. If you believe we have inadvertently collected such information, please contact us immediately.</p></div>
+      <div className="legal-section" id="pp9"><h2 className="legal-h2"><span className="num">09</span>Security</h2><p>We take reasonable administrative and technical measures to protect your personal information from unauthorized access, disclosure, or loss. However, no method of transmission over the internet is 100% secure.</p></div>
+      <div className="legal-section" id="pp10"><h2 className="legal-h2"><span className="num">10</span>Changes to This Policy</h2><p>We may update this Privacy Policy from time to time. When we do, we will revise the "Effective Date" at the top of this page. Continued use of our website after any changes constitutes your acceptance of the revised policy.</p></div>
+      <div className="legal-section" id="pp11"><h2 className="legal-h2"><span className="num">11</span>Contact Us</h2><p>If you have questions or concerns about this Privacy Policy or your personal information, please contact us:</p><div className="legal-callout"><strong>Greater Hartford Threshold Choir</strong><br/>Hartford, Connecticut<br/>Website: thresholdchoirhartford.com<br/>Email: <a href="mailto:thresholdchoirhartford@gmail.com">thresholdchoirhartford@gmail.com</a></div></div>
+    </div>
+  </main>
+);
+
+// ── TERMS OF SERVICE PAGE ──
+const TermsOfService = () => (
+  <main id="main" className="fade-in">
+    <header className="legal-hero">
+      <div className="legal-hero-inner">
+        <h1 className="legal-title">Terms of Service</h1>
+        <p className="legal-date">Effective Date: June 8, 2025</p>
+      </div>
+    </header>
+    <div className="legal-main">
+      <nav className="legal-toc" aria-label="Table of contents">
+        <p className="legal-toc-heading">Contents</p>
+        <ol>
+          <li><a href="#tos1">Acceptance of Terms</a></li>
+          <li><a href="#tos2">About Our Organization</a></li>
+          <li><a href="#tos3">Use of the Website</a></li>
+          <li><a href="#tos4">Request a Sing Form &amp; Data Submission</a></li>
+          <li><a href="#tos5">Intellectual Property</a></li>
+          <li><a href="#tos6">User-Submitted Content</a></li>
+          <li><a href="#tos7">Third-Party Links</a></li>
+          <li><a href="#tos8">Disclaimers</a></li>
+          <li><a href="#tos9">Limitation of Liability</a></li>
+          <li><a href="#tos10">Indemnification</a></li>
+          <li><a href="#tos11">Governing Law</a></li>
+          <li><a href="#tos12">Changes to These Terms</a></li>
+          <li><a href="#tos13">Contact Us</a></li>
+        </ol>
+      </nav>
+      <p>Please read these Terms of Service ("Terms") carefully before using <strong>thresholdchoirhartford.com</strong> (the "Site"), operated by the Greater Hartford Threshold Choir ("we," "us," or "our"). By accessing or using the Site, you agree to be bound by these Terms.</p>
+      <div className="legal-section" id="tos1"><h2 className="legal-h2"><span className="num">01</span>Acceptance of Terms</h2><p>By accessing or using this Site, you represent that you are at least 13 years of age and that you agree to comply with and be bound by these Terms and all applicable laws and regulations.</p></div>
+      <div className="legal-section" id="tos2"><h2 className="legal-h2"><span className="num">02</span>About Our Organization</h2><p>The Greater Hartford Threshold Choir is a community choir dedicated to singing at the bedsides of those who are dying, in hospice care, or facing serious illness. We are affiliated with the international Threshold Choir network. Nothing on this Site constitutes medical, legal, or professional advice.</p></div>
+      <div className="legal-section" id="tos3"><h2 className="legal-h2"><span className="num">03</span>Use of the Website</h2><p>You agree to use this Site only for lawful purposes and in a manner that does not infringe the rights of others. You agree not to use the Site in any way that violates applicable laws, transmit unauthorized advertising, attempt to gain unauthorized access to the Site, or use automated tools to scrape data without permission.</p></div>
+      <div className="legal-section" id="tos4"><h2 className="legal-h2"><span className="num">04</span>Request a Sing Form &amp; Data Submission</h2><p>The <strong>Request a Sing</strong> form is the only feature on this Site through which personal information is collected. When you submit this form, you agree to provide accurate information and ensure you have appropriate authorization to submit a request on behalf of another person. By submitting, you acknowledge that your information will be used solely to coordinate and fulfill your singing visit request. Please see our <a href="#/privacy-policy" onClick={(e)=>{e.preventDefault();navigate("/privacy-policy");}}>Privacy Policy</a> for full details.</p><p>We reserve the right to decline or be unable to fulfill a request based on availability, location, or other factors.</p></div>
+      <div className="legal-section" id="tos5"><h2 className="legal-h2"><span className="num">05</span>Intellectual Property</h2><p>All content on this Site is the property of the Greater Hartford Threshold Choir or its licensors and is protected by applicable copyright and intellectual property laws. You may view and print content for personal, non-commercial use only.</p><div className="legal-callout">The Threshold Choir name, logo, and song repertoire may be subject to additional protections under the Threshold Choir international organization. Please contact us before using any such materials.</div></div>
+      <div className="legal-section" id="tos6"><h2 className="legal-h2"><span className="num">06</span>User-Submitted Content</h2><p>When you submit the Request a Sing form, you grant us permission to use the information provided solely to coordinate and fulfill your requested singing visit. We do not publish, display, or share your form submission publicly.</p></div>
+      <div className="legal-section" id="tos7"><h2 className="legal-h2"><span className="num">07</span>Third-Party Links</h2><p>Our Site may contain links to third-party websites. These links are provided for convenience only. We do not control or endorse those sites and are not responsible for their content, privacy practices, or terms.</p></div>
+      <div className="legal-section" id="tos8"><h2 className="legal-h2"><span className="num">08</span>Disclaimers</h2><p>This Site and its content are provided on an <strong>"as is" and "as available"</strong> basis, without warranties of any kind. Our choir services are offered as a compassionate, non-medical, community-based ministry. Nothing on this Site constitutes or should be construed as medical, hospice, or end-of-life care advice.</p></div>
+      <div className="legal-section" id="tos9"><h2 className="legal-h2"><span className="num">09</span>Limitation of Liability</h2><p>To the fullest extent permitted by applicable law, the Greater Hartford Threshold Choir, its members, officers, and volunteers shall not be liable for any indirect, incidental, special, consequential, or punitive damages arising out of or related to your use of this Site.</p></div>
+      <div className="legal-section" id="tos10"><h2 className="legal-h2"><span className="num">10</span>Indemnification</h2><p>You agree to indemnify and hold harmless the Greater Hartford Threshold Choir, its members, officers, and volunteers from any claims, liabilities, damages, costs, and expenses arising from your use of the Site or your violation of these Terms.</p></div>
+      <div className="legal-section" id="tos11"><h2 className="legal-h2"><span className="num">11</span>Governing Law</h2><p>These Terms shall be governed by and construed in accordance with the laws of the State of Connecticut, without regard to its conflict of law provisions. Any disputes shall be subject to the exclusive jurisdiction of the courts located in Hartford County, Connecticut.</p></div>
+      <div className="legal-section" id="tos12"><h2 className="legal-h2"><span className="num">12</span>Changes to These Terms</h2><p>We reserve the right to modify these Terms at any time. When we do, we will update the "Effective Date" at the top of this page. Your continued use of the Site after changes are posted constitutes your acceptance of the revised Terms.</p></div>
+      <div className="legal-section" id="tos13"><h2 className="legal-h2"><span className="num">13</span>Contact Us</h2><p>If you have questions about these Terms, please contact us:</p><div className="legal-callout"><strong>Greater Hartford Threshold Choir</strong><br/>Hartford, Connecticut<br/>Website: thresholdchoirhartford.com<br/>Email: <a href="mailto:thresholdchoirhartford@gmail.com">thresholdchoirhartford@gmail.com</a></div></div>
+    </div>
+  </main>
+);
+
+const Inquire = () => {
+  const [submitted,setSubmitted]=useState(false);
+  return (
+    <main id="main" className="fade-in">
+      <header className="ras-head" style={{paddingBottom:24}}><div className="container"><h1>Inquire about Joining</h1><p className="ras-sub">No professional experience required — only an open heart and a willingness to serve.</p></div></header>
+      <section style={{paddingTop:24,paddingBottom:96}}><div className="container-narrow">{submitted?(<div className="form-success fade-in"><div className="check-icon">{Icons.check}</div><h3 style={{marginBottom:10}}>Thank you — your inquiry arrived.</h3><p style={{margin:"0 auto",maxWidth:480,color:"var(--ink-soft)"}}>A member of our chapter will be in touch soon.</p></div>):(<p style={{color:"var(--ink-soft)",fontSize:16}}>Please email us at <a href="mailto:thresholdchoirhartford@gmail.com">thresholdchoirhartford@gmail.com</a> to inquire about joining our choir.</p>)}</div></section>
+    </main>
+  );
+};
+
+const App=()=>{
+  const route=useRoute();
+  let Page;
+  if(route==="/"||route==="")Page=Home;
+  else if(route==="/testimonials")Page=Testimonials;
+  else if(route==="/join")Page=Join;
+  else if(route==="/members")Page=Members;
+  else if(route==="/request-a-sing")Page=RequestSing;
+  else if(route==="/inquire")Page=Inquire;
+  else if(route==="/donate")Page=Donate;
+  else if(route==="/privacy-policy")Page=PrivacyPolicy;
+  else if(route==="/terms-of-service")Page=TermsOfService;
+  else Page=Home;
+  const showFooter=!(route==="/members"&&sessionStorage.getItem("ghtc-member")!=="1");
+  return (
+    <>
+      <a href="#main" className="skip">Skip to content</a>
+      <Nav route={route}/>
+      <Page key={route}/>
+      {showFooter&&<Footer/>}
+    </>
+  );
+};
+ReactDOM.createRoot(document.getElementById("app")).render(<App/>);
+</script>
+</body>
+</html>
